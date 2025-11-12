@@ -1,3 +1,3 @@
-# gitpack
+# GitPack
 
-A new Flutter project.
+🏗️ 开发中 | Under development
