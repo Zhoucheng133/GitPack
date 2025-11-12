@@ -9,6 +9,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  file_picker: ^10.3.6
+  package_info_plus: ^9.0.0
+  font_awesome_flutter: ^10.9.1
+  window_manager: ^0.5.1
+  ffi: ^2.1.4
+  url_launcher: ^6.3.2
+  shared_preferences: ^2.5.3
+  google_fonts: ^6.3.2
+  get: ^4.7.2
+  desktop_drop: ^0.7.0
+  msix: ^3.16.12
 
 dev_dependencies:
   flutter_test:
