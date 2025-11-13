@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gitpack/main_window.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -31,9 +32,7 @@ class MainApp extends StatelessWidget {
         textTheme: GoogleFonts.notoSansScTextTheme(),
       ),
       home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+        body: MainWindow()
       ),
     );
   }
