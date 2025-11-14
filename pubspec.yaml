@@ -20,6 +20,7 @@ dependencies:
   get: ^4.7.2
   desktop_drop: ^0.7.0
   msix: ^3.16.12
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
