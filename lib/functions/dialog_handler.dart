@@ -8,8 +8,8 @@ void warnDialog(BuildContext context, String title, String content){
   showDialog(
     context: context, 
     builder: (context)=>AlertDialog(
-      title: const Text("打开Git项目错误"),
-      content: const Text("不合法的Git仓库或者没有.gitignore文件"),
+      title: Text(title),
+      content: Text(content),
       actions: [
         ElevatedButton(
           onPressed: ()=>Navigator.pop(context), 
