@@ -1,5 +1,12 @@
+import 'dart:ffi';
+import 'dart:io';
+
+import 'package:ffi/ffi.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gitpack/functions/dialog_handler.dart';
 import 'package:gitpack/getx/controller.dart';
 import 'package:gitpack/views/components/config_item.dart';
 import 'package:path/path.dart' as p;
@@ -11,6 +18,12 @@ class ConfigView extends StatefulWidget {
   State<ConfigView> createState() => _ConfigViewState();
 }
 
+typedef RepoToNew = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>, Int);
+typedef RepoToNewDart = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>, int);
+
+typedef RepoToZip = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>, Int);
+typedef RepoToZipDart = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>, int);
+
 class _ConfigViewState extends State<ConfigView> {
 
   final Controller controller=Get.find();
@@ -18,9 +31,55 @@ class _ConfigViewState extends State<ConfigView> {
   bool keepGit=false;
   String format='zip';
 
+  bool loading=false;
+
+  static String repoToNew(List params){
+    final dynamicLib=DynamicLibrary.open(Platform.isMacOS ? 'core.dylib' : 'core.dll');
+    final RepoToNewDart repoToNew=dynamicLib
+    .lookup<NativeFunction<RepoToNew>>('RepoToNew')
+    .asFunction();
+
+    return repoToNew(params[0], params[1], params[2]).toDartString();
+  }
+
+  static String repoToZip(List params){
+    final dynamicLib=DynamicLibrary.open(Platform.isMacOS ? 'core.dylib' : 'core.dll');
+    final RepoToZipDart repoToZip=dynamicLib
+    .lookup<NativeFunction<RepoToZip>>('RepoToZip')
+    .asFunction();
+
+    return repoToZip(params[0], params[1], params[2]).toDartString();
+  }
+
+  Future<void> taskHandler(BuildContext context, String output) async {
+    
+    setState(() {
+      loading=true;
+    });
+
+    String response="";
+    if(format=="zip"){
+      response=await compute(repoToZip, [controller.repoPath.value.toNativeUtf8(), output.toNativeUtf8(), keepGit ? 1 : 0]);
+    }else{
+      response=await compute(repoToNew, [controller.repoPath.value.toNativeUtf8(), output.toNativeUtf8(), keepGit ? 1 : 0]);
+    }
+
+    setState(() {
+      loading=false;
+    });
+
+    if(!response.contains("Ok") && context.mounted){
+      warnDialog(context, "导出失败", response);
+    }else if(context.mounted){
+      warnDialog(context, "导出完成", response);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return loading ? Center(
+      child: CircularProgressIndicator(),
+    ) : Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
       child: Column(
         children: [
@@ -139,8 +198,11 @@ class _ConfigViewState extends State<ConfigView> {
               ),
               const SizedBox(width: 10,),
               FilledButton(
-                onPressed: (){
-                  // TODO 导出
+                onPressed: () async {
+                  String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+                  if(selectedDirectory!=null && context.mounted){
+                    taskHandler(context, selectedDirectory);
+                  }
                 }, 
                 child: Text("导出")
               )
