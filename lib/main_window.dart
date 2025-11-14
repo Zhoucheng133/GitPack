@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gitpack/getx/controller.dart';
 import 'package:gitpack/views/add_view.dart';
+import 'package:gitpack/views/config_view.dart';
 import 'package:window_manager/window_manager.dart';
 
 class MainWindow extends StatefulWidget {
@@ -41,6 +44,8 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
     });
   }
 
+  final Controller controller=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -73,7 +78,9 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
           ),
         ),
         Expanded(
-          child: AddView()
+          child: Obx(()=>
+            controller.repoPath.value.isEmpty ? AddView() : ConfigView()
+          )
         ),
       ],
     );

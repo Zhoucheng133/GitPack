@@ -5,7 +5,9 @@ import 'package:desktop_drop/desktop_drop.dart';
 import 'package:ffi/ffi.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gitpack/functions/dialog_handler.dart';
+import 'package:gitpack/getx/controller.dart';
 
 class AddView extends StatefulWidget {
   const AddView({super.key});
@@ -28,6 +30,8 @@ class _AddViewState extends State<AddView> {
     return checkRepo(repoPath.toNativeUtf8());
   }
 
+  final Controller controller=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return DropTarget(
@@ -43,7 +47,10 @@ class _AddViewState extends State<AddView> {
 
         if(isRepo!=1 && context.mounted){
           warnDialog(context, "打开Git仓库失败", "不是一个合法的Git仓库或者没有.gitignore文件");
+          return;
         }
+
+        controller.repoPath.value=repoPath;
       },
       child: Stack(
         children: [

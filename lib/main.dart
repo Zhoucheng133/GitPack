@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gitpack/getx/controller.dart';
 import 'package:gitpack/main_window.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:window_manager/window_manager.dart';
@@ -18,6 +20,7 @@ Future<void> main() async {
     await windowManager.show();
     await windowManager.focus();
   });
+  Get.put(Controller());
   runApp(const MainApp());
 }
 
