@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:ffi/ffi.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,17 @@ class _AddViewState extends State<AddView> {
 
   final Controller controller=Get.find();
 
+  Future<void> checkRepoHandler(BuildContext context, String repoPath) async {
+    final isRepo=await compute(repoCheckHandler, repoPath);
+
+    if(isRepo!=1 && context.mounted){
+      warnDialog(context, "打开Git仓库失败", "不是一个合法的Git仓库或者没有.gitignore文件");
+      return;
+    }
+
+    controller.repoPath.value=repoPath;
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropTarget(
@@ -43,14 +55,9 @@ class _AddViewState extends State<AddView> {
           return;
         }
 
-        final isRepo=await compute(repoCheckHandler, repoPath);
-
-        if(isRepo!=1 && context.mounted){
-          warnDialog(context, "打开Git仓库失败", "不是一个合法的Git仓库或者没有.gitignore文件");
-          return;
+        if(context.mounted){
+          checkRepoHandler(context, repoPath);
         }
-
-        controller.repoPath.value=repoPath;
       },
       child: Stack(
         children: [
@@ -59,7 +66,12 @@ class _AddViewState extends State<AddView> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: (){}, 
+                  onPressed: () async {
+                    String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+                    if(selectedDirectory!=null && context.mounted){
+                      checkRepoHandler(context, selectedDirectory);
+                    }
+                  }, 
                   icon: Icon(Icons.add_rounded),
                 ),
                 const SizedBox(height: 5,),
