@@ -32,6 +32,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         textTheme: GoogleFonts.notoSansScTextTheme(),
       ),
       home: const Scaffold(
