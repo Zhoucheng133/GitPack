@@ -29,9 +29,21 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final brightness = MediaQuery.of(context).platformBrightness; 
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
+        textTheme: GoogleFonts.notoSansScTextTheme().apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white, 
+        ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.orange,
+          brightness: Brightness.dark,
+        ),
+      ) : ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         textTheme: GoogleFonts.notoSansScTextTheme(),
       ),
