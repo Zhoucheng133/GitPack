@@ -31,3 +31,15 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+
+msix_config:
+  display_name: GitPack
+  publisher_display_name: ZhouCheng
+  identity_name: ZhouCheng.GitPack
+  msix_version: 0.1.0.0
+  logo_path: assets/icon.png
+  trim_logo: false
+  capabilities: internetClient
+  languages: zh-cn
+  publisher: # Publisher HERE
+  store: true
