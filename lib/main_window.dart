@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gitpack/functions/dialog_handler.dart';
 import 'package:gitpack/getx/controller.dart';
 import 'package:gitpack/views/add_view.dart';
 import 'package:gitpack/views/config_view.dart';
@@ -82,6 +83,86 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
             controller.repoPath.value.isEmpty ? AddView() : ConfigView()
           )
         ),
+        if(Platform.isMacOS) PlatformMenuBar(
+          menus: [
+            PlatformMenu(
+              label: "GitPack",
+              menus: [
+                PlatformMenuItemGroup(
+                  members: [
+                    PlatformMenuItem(
+                      label: "关于 GitPack",
+                      onSelected: (){
+                        showAbout(context);
+                      }
+                    )
+                  ]
+                ),
+                const PlatformMenuItemGroup(
+                  members: [
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.hide,
+                    ),
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.quit,
+                    ),
+                  ]
+                ),
+              ]
+            ),
+            PlatformMenu(
+              label: "编辑",
+              menus: [
+                PlatformMenuItem(
+                  label: "拷贝",
+                  onSelected: (){
+                    final focusedContext = FocusManager.instance.primaryFocus?.context;
+                    if (focusedContext != null) {
+                      Actions.invoke(focusedContext, CopySelectionTextIntent.copy);
+                    }
+                  }
+                ),
+                PlatformMenuItem(
+                  label: "粘贴",
+                  onSelected: (){
+                    final focusedContext = FocusManager.instance.primaryFocus?.context;
+                    if (focusedContext != null) {
+                      Actions.invoke(focusedContext, const PasteTextIntent(SelectionChangedCause.keyboard));
+                    }
+                  },
+                ),
+                PlatformMenuItem(
+                  label: "全选",
+                  onSelected: (){
+                    final focusedContext = FocusManager.instance.primaryFocus?.context;
+                    if (focusedContext != null) {
+                      Actions.invoke(focusedContext, const SelectAllTextIntent(SelectionChangedCause.keyboard));
+                    }
+                  }
+                )
+              ]
+            ),
+            const PlatformMenu(
+              label: "窗口", 
+              menus: [
+                PlatformMenuItemGroup(
+                  members: [
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.minimizeWindow,
+                    ),
+                    PlatformProvidedMenuItem(
+                      enabled: true,
+                      type: PlatformProvidedMenuItemType.toggleFullScreen,
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        )
       ],
     );
   }
