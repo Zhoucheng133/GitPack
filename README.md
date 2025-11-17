@@ -12,7 +12,7 @@
 
 核心组件库[在这里](https://github.com/Zhoucheng133/GitPack-Core)
 
-> ![NOTE]
+> [!NOTE]
 > 不支持嵌套`.gitignore`配置
 
 ## 截图
