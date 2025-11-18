@@ -15,6 +15,7 @@ Future<void> main() async {
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.hidden,
+    title: "GitPack"
   );
   windowManager.setResizable(false);
   windowManager.waitUntilReadyToShow(windowOptions, () async {
