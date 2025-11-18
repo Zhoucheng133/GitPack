@@ -12,9 +12,6 @@
 
 核心组件库[在这里](https://github.com/Zhoucheng133/GitPack-Core)
 
-> [!NOTE]
-> 不支持嵌套`.gitignore`配置，只会根据项目根目录的`.gitignore`文件判断需要忽略哪些文件
-
 ## 截图
 
 <img src="demo/demo.png" alt="demo2.jpg" width="500px" />
