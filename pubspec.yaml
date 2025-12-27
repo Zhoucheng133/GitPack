@@ -31,6 +31,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: "Noto"
+      fonts:
+        - asset: fonts/NotoSansSC-Regular.ttf
+          weight: 400
 
 msix_config:
   display_name: GitPack

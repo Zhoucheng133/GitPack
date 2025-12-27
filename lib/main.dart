@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gitpack/getx/controller.dart';
 import 'package:gitpack/main_window.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
@@ -36,18 +35,20 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.notoSansScTextTheme().apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.white, 
-        ),
+      theme: ThemeData(
+        brightness: brightness,
+        fontFamily: 'Noto', 
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.orange,
-          brightness: Brightness.dark,
+          brightness: brightness,
         ),
-      ) : ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-        textTheme: GoogleFonts.notoSansScTextTheme(),
+        textTheme: brightness==Brightness.dark ? ThemeData.dark().textTheme.apply(
+          fontFamily: 'Noto',
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ) : ThemeData.light().textTheme.apply(
+          fontFamily: 'Noto',
+        ),
       ),
       home: const Scaffold(
         body: MainWindow()
