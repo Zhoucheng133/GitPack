@@ -124,66 +124,60 @@ class _ConfigViewState extends State<ConfigView> {
           ConfigItem(
             label: "输出为", 
             height: null,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Radio(
-                      value: "zip", 
-                      groupValue: format, 
-                      splashRadius: 0,
-                      onChanged: (val){
-                        if(val!=null){
+            child: RadioGroup<String>(
+              groupValue: format,
+              onChanged: (val){
+                if(val!=null){
+                  setState(() {
+                    format=val;
+                  });
+                }
+              },
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Radio(
+                        value: "zip", 
+                        splashRadius: 0,
+                      ),
+                      const SizedBox(width: 5,),
+                      GestureDetector(
+                        onTap: (){
                           setState(() {
-                            format=val;
+                            format="zip";
                           });
-                        }
-                      }
-                    ),
-                    const SizedBox(width: 5,),
-                    GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          format="zip";
-                        });
-                      },
-                      child: MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Text("打包为zip文件")
+                        },
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text("打包为zip文件")
+                        )
                       )
-                    )
-                  ],
-                ),
-                const SizedBox(height: 5,),
-                Row(
-                  children: [
-                    Radio(
-                      value: "folder", 
-                      groupValue: format, 
-                      splashRadius: 0,
-                      onChanged: (val){
-                        if(val!=null){
+                    ],
+                  ),
+                  const SizedBox(height: 5,),
+                  Row(
+                    children: [
+                      Radio(
+                        value: "folder", 
+                        splashRadius: 0,
+                      ),
+                      const SizedBox(width: 5,),
+                      GestureDetector(
+                        onTap: (){
                           setState(() {
-                            format=val;
+                            format="folder";
                           });
-                        }
-                      }
-                    ),
-                    const SizedBox(width: 5,),
-                    GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          format="folder";
-                        });
-                      },
-                      child: MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Text("导出目录")
+                        },
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text("导出目录")
+                        )
                       )
-                    )
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              )
             )
           ),
           Expanded(child: Container()),
