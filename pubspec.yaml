@@ -1,7 +1,7 @@
 name: gitpack
 description: "Pack git repo without ignores"
 publish_to: 'none'
-version: 0.2.1
+version: 0.2.2
 
 environment:
   sdk: ^3.8.1
@@ -41,7 +41,7 @@ msix_config:
   display_name: GitPack
   publisher_display_name: ZhouCheng
   identity_name: ZhouCheng.GitPack
-  msix_version: 0.2.1.0
+  msix_version: 0.2.2.0
   logo_path: assets/icon.png
   trim_logo: false
   capabilities: internetClient
