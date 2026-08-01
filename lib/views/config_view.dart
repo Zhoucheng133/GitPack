@@ -148,10 +148,7 @@ class _ConfigViewState extends State<ConfigView> {
                             format="zip";
                           });
                         },
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Text("打包为zip文件")
-                        )
+                        child: Text("打包为zip文件")
                       )
                     ],
                   ),
@@ -169,10 +166,7 @@ class _ConfigViewState extends State<ConfigView> {
                             format="folder";
                           });
                         },
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Text("导出目录")
-                        )
+                        child: Text("导出目录")
                       )
                     ],
                   ),

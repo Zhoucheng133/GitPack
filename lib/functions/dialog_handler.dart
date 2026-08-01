@@ -58,28 +58,25 @@ Future<void> showAbout(BuildContext context) async {
                 final Uri url = Uri.parse('https://github.com/Zhoucheng133/gitpack');
                 await launchUrl(url);
               },
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const FaIcon(
-                      FontAwesomeIcons.github,
-                      size: 15,
-                    ),
-                    const SizedBox(width: 5,),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 2),
-                      child: Text(
-                        '本项目地址',
-                        style: TextStyle(
-                          fontSize: 13,
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const FaIcon(
+                    FontAwesomeIcons.github,
+                    size: 15,
+                  ),
+                  const SizedBox(width: 5,),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 2),
+                    child: Text(
+                      '本项目地址',
+                      style: TextStyle(
+                        fontSize: 13,
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
             const SizedBox(height: 5),
@@ -89,28 +86,25 @@ Future<void> showAbout(BuildContext context) async {
                 applicationVersion: 'v$version',
                 context: context
               ),
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const FaIcon(
-                      FontAwesomeIcons.certificate,
-                      size: 15,
-                    ),
-                    const SizedBox(width: 5,),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 2),
-                      child: Text(
-                        '许可证',
-                        style: TextStyle(
-                          fontSize: 13,
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const FaIcon(
+                    FontAwesomeIcons.certificate,
+                    size: 15,
+                  ),
+                  const SizedBox(width: 5,),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 2),
+                    child: Text(
+                      '许可证',
+                      style: TextStyle(
+                        fontSize: 13,
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
